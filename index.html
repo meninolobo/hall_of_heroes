@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<title>Hall Of Heroes</title>
+	<link rel="Icon" href="img/icon.jpg">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+<script >
+	function getNomeHeroi(heroi){
+         // Access-Control-Allow-Headers: *   
+        let url='https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2366368930336276/search/'+heroi
+        // console.log(url)
+
+       let loading=document.createElement('img')
+       loading.src='img/rastreando2.gif'
+       loading.id='carregando'
+       loading.className='mt-5 mx-auto d-block'
+       loading.style='width:90%; height:80%;border:10px solid green;'
+       
+       let rodape=document.getElementById('footer')
+          rodape.style="font-size: 30px;margin-top: 150px;bottom: 0px"
+
+        let requisicao= new XMLHttpRequest()
+
+        requisicao.open("GET",url)
+        // console.log(requisicao.readyState)
+    //limpa a tela
+    document.getElementById('corpo').innerHTML='' 
+    document.getElementById('corpo').appendChild(loading)
+
+
+         requisicao.onreadystatechange=()=>{
+    
+
+    if (requisicao.status==404) {
+           // console.log(dadosJson.response)
+
+            let divFaixa=document.createElement('div')
+            divFaixa.className='row'
+
+            let divColFaixa=document.createElement('div')
+            divColFaixa.className='col-md-12 col-sm-10 d-flex justify-content-center'
+            divColFaixa.style='height: 60px;width: auto;background: red;color:#FFFF00'
+            divColFaixa.innerHTML="<h1>*********<span id='nome'>Identidade Desconhecida</span>***********</h1>"
+             
+            divFaixa.appendChild(divColFaixa)     
+            document.getElementById('corpo').appendChild(divFaixa)
+            document.getElementById('01').style='background-image: url(img/bg2.png);' 
+              }
+        
+
+        if (requisicao.readyState == 4 && requisicao.status== 200 ){
+         document.getElementById('carregando').remove()
+
+         // let rodape=document.getElementById('footer')
+         //  rodape.style="font-size: 30px;margin-top: 150px;bottom: 0px"
+
+
+
+
+        let dadostext=requisicao.responseText
+        //console.log(dadostext)
+        // tentando alterar o nome
+         let novotext=dadostext.replace(/-/g,'_')
+        //console.log(novotext)
+
+        let dadosJson=JSON.parse (novotext)
+         //console.log(dadosJson)
+
+       if (dadosJson.response=='error') {
+           //console.log(dadosJson.response)
+
+            let divFaixa=document.createElement('div')
+            divFaixa.className='row'
+
+            let divColFaixa=document.createElement('div')
+            divColFaixa.className='col-md-12 d-flex justify-content-center'
+            divColFaixa.style='height: 60px;width: auto;background: red;color:#FFFF00'
+            divColFaixa.innerHTML="<h1>*********<span id='nome'>Identidade Desconhecida</span>***********</h1>"
+             
+            divFaixa.appendChild(divColFaixa)     
+            document.getElementById('corpo').appendChild(divFaixa)
+
+             document.getElementById('01').style='background-image: url(img/bg2.png);'   
+              }
+
+
+       for (let i in dadosJson.results) {
+            // console.log(dadosJson.results[i])
+
+
+//vriando os elementos da pagina 
+            let divFaixa=document.createElement('div')
+            divFaixa.className='row'
+
+            let divColFaixa=document.createElement('div')
+            divColFaixa.className='col-md-12 d-flex justify-content-center'
+            divColFaixa.style='height: 60px;width: auto;background: red;color:#FFFF00; '
+            divColFaixa.innerHTML="<h1>*********<span id='nome' style='font-size:50px;'>"+dadosJson.results[i].name+"</span>***********</h1>"
+            
+            let divThumb=document.createElement('div')
+              divThumb.className='row'
+            let divIMG=document.createElement('div')
+                divIMG.style='height:90px; background-color:red;'
+                divIMG.className='col-md-5 col-sm-3'
+                divIMG.style='height: 500px'
+
+            let IMG=document.createElement('img')
+               IMG.style='border: 5px solid white'
+               IMG.id='thumb'
+               IMG.setAttribute('src',dadosJson.results[i].image.url)
+           //
+             let divInfo=document.createElement('div')
+             divInfo.className='col-md-7'
+             
+             let divInfo1=document.createElement('div')
+             divInfo1.className='row mb-3 ml-3 mt-3'
+             divInfo1.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
+             // console.log(dadosJson.results[i].biography.full_name)
+             let nome1=document.createElement('span')
+             nome1.innerHTML='NOME: '+dadosJson.results[i].biography.full_name
+             nome1.id='nome1'
+
+             let divInfo2=document.createElement('div')
+             divInfo2.className='row mb-3 ml-3'
+             divInfo2.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
+             let alter1=document.createElement('span')
+             alter1.innerHTML='Alter ego: '+dadosJson.results[i].name
+             alter1.id='alter1'
+
+             let divInfo3=document.createElement('div')
+             divInfo3.className='row mb-3 ml-3'
+             divInfo3.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
+             
+             let first1=document.createElement('span')
+             first1.innerHTML='Primeira aparição: '+dadosJson.results[i].biography.first_appearance
+             first1.id='first1'
+
+
+             let divInfo4=document.createElement('div')
+             divInfo4.className='row mb-3 ml-3'
+             divInfo4.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
+             
+             let bio1=document.createElement('span')
+              bio1.innerHTML=`place_of_birth: ${dadosJson.results[i].biography.place_of_birth}<br> publisher: ${dadosJson.results[i].biography.publisher} `
+              bio1.id='bio1'
+
+             let hr=document.createElement('hr')
+              hr.style='color:red;height:10px;'
+            
+            divFaixa.appendChild(divColFaixa)
+
+            divThumb.appendChild(divIMG)
+            divThumb.appendChild(divInfo)
+            divIMG.appendChild(IMG)
+
+            divInfo1.appendChild(nome1)
+            divInfo2.appendChild(alter1)
+            divInfo3.appendChild(first1)
+            divInfo4.appendChild(bio1)
+
+            divInfo.appendChild(divInfo1)
+            divInfo.appendChild(divInfo2)
+            divInfo.appendChild(divInfo3)
+            divInfo.appendChild(divInfo4)
+
+            document.getElementById('corpo').appendChild(divFaixa)
+            document.getElementById('corpo').appendChild(divThumb)
+            document.getElementById('corpo').appendChild(hr)
+
+            document.getElementById('01').style='background-image: url(img/bg1.png);'   
+
+           }
+         }
+         }
+          
+       requisicao.send()
+
+     
+	}
+
+
+
+
+
+
+
+</script>
+
+
+
+</head>
+<body id="01" style="background-image: url(img/bg.jpg);">
+ 
+	     <nav>
+		  <div class="container" style="background-color: #000 ;color:#FFFF00;"> 
+		   <div class="navbar navbar-brand mt-3">
+			 <img src="img/icon.jpg" height="80px">
+			 <h1 style="float: right;">HALL OF HEROES</h1>
+		   </div>
+           <div style="position:absolute;right: 120px ;top:5px;" class="mt-2 mr-3">
+               <h6>BUSCAR PERSONAGEM(em inglês)</h6>
+		     <input  id="supernome" type="text" name="supernome" style="" placeholder="SUPER NOME">
+		     <input type="submit" name="pesquisa" value="pesquisar" onclick="getNomeHeroi(getElementById('supernome').value)">
+          </div>
+         </div> 
+	   </nav>
+
+	
+ 
+   <div id="corpo" class="container" style=" font-size: 30px;">
+      
+     <!--  <div class="row">
+        vai vir tudo programatico
+     </div> -->
+       
+  </div>
+  <footer id="footer" style="font-size: 30px;margin-top: 460px;bottom: 0px">
+  <div  class="container" >
+     <div style="padding: 20px ;height: 80px;background: black;color: white;margin-bottom: 0px;margin-top: auto;border: solid 5px yellow" class="d-flex justify-content-center">
+           <h5>DANIEL-MUNIZ-SOARES++++2020!</h5>
+           <div style="position: absolute;right: 150px">
+                 <span style="font-size:  16px ;position: absolute;right:5px;bottom: 40px ">reference:</span>
+                <a href="https://superheroapi.com/" target="blank"><img style="width: 80px" src="https://superheroapi.com/assets/img/logo-sidebar.png"></a>
+           </div>
+       </div>     
+  </div> 
+  </footer>
+
+       
+       
+</body>
+  
+</html>
