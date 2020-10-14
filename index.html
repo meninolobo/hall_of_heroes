@@ -120,7 +120,7 @@
              divInfo1.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              // console.log(dadosJson.results[i].biography.full_name)
              let nome1=document.createElement('span')
-             nome1.innerHTML='NOME: '+dadosJson.results[i].biography.full_name
+             nome1.innerHTML='Name: '+dadosJson.results[i].biography.full_name
              nome1.id='nome1'
 
              let divInfo2=document.createElement('div')
@@ -135,7 +135,7 @@
              divInfo3.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              
              let first1=document.createElement('span')
-             first1.innerHTML='Primeira aparição: '+dadosJson.results[i].biography.first_appearance
+             first1.innerHTML='First Appearance: '+dadosJson.results[i].biography.first_appearance
              first1.id='first1'
 
 
@@ -201,7 +201,7 @@
 			 <h1 style="float: right;">HALL OF HEROES</h1>
 		   </div>
            <div style="position:absolute;right: 120px ;top:5px;" class="mt-2 mr-3">
-               <h6>BUSCAR PERSONAGEM(em inglês)</h6>
+               <h6>search for character</h6>
 		     <input  id="supernome" type="text" name="supernome" style="" placeholder="Wonder Woman" onblur="getNomeHeroi(this.value)">
 		     <input type="submit" name="pesquisa" value="pesquisar" onclick="getNomeHeroi(getElementById('supernome').value)">
           </div>
