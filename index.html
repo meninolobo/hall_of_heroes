@@ -8,6 +8,30 @@
 
 
 <script >
+// 	este bloco permite realizar pesquisas em portugues
+   function traduz(heroi){
+       let urltraduz=`https://api.mymemory.translated.net/get?q=${heroi}&langpair=pt|en`
+       
+       
+           let reqTraduzir = new XMLHttpRequest
+          
+           reqTraduzir.open("GET",urltraduz)
+
+           reqTraduzir.onreadystatechange=()=>{
+          if(reqTraduzir.readyState == 4 && reqTraduzir.status== 200 ){
+                 let dadostraduzidos=JSON.parse(reqTraduzir.response)
+                 let character=dadostraduzidos.responseData.translatedText
+                 getNomeHeroi(character)
+          }
+          
+          }
+
+          reqTraduzir.send()
+
+   }
+	
+	
+	
 	function getNomeHeroi(heroi){
          // Access-Control-Allow-Headers: *   
         let url='https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/2366368930336276/search/'+heroi
@@ -120,7 +144,7 @@
              divInfo1.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              // console.log(dadosJson.results[i].biography.full_name)
              let nome1=document.createElement('span')
-             nome1.innerHTML='Name: '+dadosJson.results[i].biography.full_name
+             nome1.innerHTML='Nome: '+dadosJson.results[i].biography.full_name
              nome1.id='nome1'
 
              let divInfo2=document.createElement('div')
@@ -135,7 +159,7 @@
              divInfo3.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              
              let first1=document.createElement('span')
-             first1.innerHTML='First Appearance: '+dadosJson.results[i].biography.first_appearance
+             first1.innerHTML='Primeira Aparição: '+dadosJson.results[i].biography.first_appearance
              first1.id='first1'
 
 
@@ -144,11 +168,11 @@
              divInfo4.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              
              let bio1=document.createElement('span')
-              bio1.innerHTML=`place_of_birth: ${dadosJson.results[i].biography.place_of_birth}<br> publisher: ${dadosJson.results[i].biography.publisher} `
+              bio1.innerHTML=`Local de nascimento: ${dadosJson.results[i].biography.place_of_birth}<br> Editora: ${dadosJson.results[i].biography.publisher} `
               bio1.id='bio1'
 
              let hr=document.createElement('hr')
-              hr.style='color:red;height:10px;'
+              
             
             divFaixa.appendChild(divColFaixa)
 
@@ -201,9 +225,9 @@
 			 <h1 style="float: right;">HALL OF HEROES</h1>
 		   </div>
            <div style="position:absolute;right: 120px ;top:5px;" class="mt-2 mr-3">
-               <h6>search for character</h6>
-		     <input  id="supernome" type="text" name="supernome" style="" placeholder="Wonder Woman" onblur="getNomeHeroi(this.value)">
-		     <input type="submit" name="pesquisa" value="pesquisar" onclick="getNomeHeroi(getElementById('supernome').value)">
+               <h6>procura personagem</h6>
+		     <input  id="supernome" type="text" name="supernome" style="" placeholder="Homen-aranha" onblur="traduz(this.value)">
+		     <input type="submit" name="pesquisa" value="pesquisar" onclick="traduz(getElementById('supernome').value)">
           </div>
          </div> 
 	   </nav>
