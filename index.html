@@ -124,7 +124,7 @@
             let divColFaixa=document.createElement('div')
             divColFaixa.className='col-md-12 d-flex justify-content-center'
             divColFaixa.style='height: 60px;width: auto;background: red;color:#FFFF00; '
-            divColFaixa.innerHTML="<h1>*********<span id='nome' style='font-size:50px;'>"+dadosJson.results[i].name+"</span>***********</h1>"
+            divColFaixa.innerHTML="<h1>*********<span id='nome' style='font-size:50px;'>"+(dadosJson.results[i].name).replace(/_/g,'-')+"</span>***********</h1>"
             
             let divThumb=document.createElement('div')
               divThumb.className='row'
@@ -153,7 +153,7 @@
              divInfo2.className='row mb-3 ml-3'
              divInfo2.style='background-color: #000 ;color:#FFFF00;border: 5px solid white;'
              let alter1=document.createElement('span')
-             alter1.innerHTML='Alter ego: '+dadosJson.results[i].name
+             alter1.innerHTML='Alter ego: '+(dadosJson.results[i].name).replace(/_/g,'-')
              alter1.id='alter1'
 
              let divInfo3=document.createElement('div')
@@ -245,7 +245,7 @@
   </div>
   <footer id="footer" style="font-size: 30px;margin-top: 460px;bottom: 0px">
   <div  class="container" >
-     <div style="padding: 20px ;height: 80px;background: black;color: white;margin-bottom: 0px;margin-top: auto;border: solid 5px yellow" class="d-flex justify-content-center">
+     <div id='rodape' style="padding: 20px ;height: 80px;background: black;color: white;margin-bottom: 0px;margin-top: auto;border: solid 5px yellow" class="d-flex justify-content-center">
            <h5>DANIEL-MENINOLOBO++++2020!</h5>
            <div style="position: absolute;right: 150px">
                  <span style="font-size:  16px ;position: absolute;right:5px;bottom: 40px ">reference:</span>
